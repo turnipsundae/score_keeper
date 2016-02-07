@@ -31,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
             increment = true;
             incrementAmount.setText("Tap each player to +" + amt);
             incToggle.setText("Increase");
-            
+
         }
     }
 
     public void changeAmt(View view) {
+        Button chngAmt = (Button) findViewById(R.id.change_amt);
         if (amt == 1) {
             amt = 5;
         } else if (amt == 5) {
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (amt == 10) {
             amt = 1;
         }
+        chngAmt.setText("By " + amt);
+        
         TextView incrementAmount = (TextView) findViewById(R.id.increment_amount);
         if (increment) {
             incrementAmount.setText("Tap each player to +" + amt);
@@ -53,18 +56,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void incPlayerOne (View view) {
         if (increment) {
-            playerOneScore += 1;
+            playerOneScore += amt;
         } else {
-            playerOneScore -= 1;
+            playerOneScore -= amt;
         }
         displayPlayerOne(playerOneScore);
     }
 
     public void incPlayerTwo (View view) {
         if (increment) {
-            playerTwoScore += 1;
+            playerTwoScore += amt;
         } else {
-            playerTwoScore -= 1;
+            playerTwoScore -= amt;
         }
         displayPlayerTwo(playerTwoScore);
     }
