@@ -37,13 +37,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:onClick="incPlayerOne">
 
             <TextView
                 android:layout_width="match_parent"
@@ -56,8 +59,6 @@
                 android:id="@+id/player_one_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:onClick="incPlayerOne"
                 android:text="0"
                 android:textSize="36sp"
                 android:gravity="center"/>
