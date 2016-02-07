@@ -3,6 +3,7 @@ package com.laudev.android.scorekeeper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,12 +21,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeIncrement(View view) {
         TextView incrementAmount = (TextView) findViewById(R.id.increment_amount);
+        Button incToggle = (Button) findViewById(R.id.inc_toggle);
         if (increment) {
             increment = false;
             incrementAmount.setText("Tap each player to -" + amt);
+            incToggle.setText("Decrease");
+
         } else {
             increment = true;
             incrementAmount.setText("Tap each player to +" + amt);
+            incToggle.setText("Increase");
+            
         }
     }
 

@@ -23,6 +23,7 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/inc_toggle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
