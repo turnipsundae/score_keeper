@@ -11,25 +11,23 @@
         android:layout_height="wrap_content"
         android:background="@android:color/darker_gray"
         android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Tap each player to +1"
+            android:gravity="center"
+            android:layout_margin="8dp"
+            />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:background="@android:color/holo_blue_bright"
             android:gravity="center"
-            android:text="tap each player to -1"
-            android:textSize="24sp"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@android:color/holo_blue_bright"
-            android:gravity="center"
-            android:text="tap each player to +1"
+            android:text="Change increment"
             android:textSize="24sp" />
     </LinearLayout>
 
