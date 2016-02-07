@@ -92,6 +92,21 @@ public class MainActivity extends AppCompatActivity {
         displayPlayerFour(playerFourScore);
     }
 
+    public void resetAll (View view) {
+        playerOneScore = 0;
+        playerTwoScore = 0;
+        playerThreeScore = 0;
+        playerFourScore = 0;
+        TextView p1 = (TextView) findViewById(R.id.player_one_score);
+        p1.setText("" + playerOneScore);
+        TextView p2 = (TextView) findViewById(R.id.player_two_score);
+        p2.setText("" + playerTwoScore);
+        TextView p3 = (TextView) findViewById(R.id.player_three_score);
+        p3.setText("" + playerThreeScore);
+        TextView p4 = (TextView) findViewById(R.id.player_four_score);
+        p4.setText("" + playerFourScore);
+    }
+
     private void displayPlayerOne (int score) {
         TextView view = (TextView) findViewById(R.id.player_one_score);
         view.setText("" + score);

@@ -160,4 +160,11 @@
                 android:textSize="36sp" />
         </LinearLayout>
     </LinearLayout>
+    <Button
+        android:id="@+id/reset_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reset All"
+        android:layout_margin="8dp"
+        android:onClick="resetAll"/>
 </LinearLayout>
