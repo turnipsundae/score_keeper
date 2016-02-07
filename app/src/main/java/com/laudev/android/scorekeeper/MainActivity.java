@@ -10,6 +10,8 @@ public class MainActivity extends AppCompatActivity {
 
     int playerOneScore = 0;
     int playerTwoScore = 0;
+    int playerThreeScore = 0;
+    int playerFourScore = 0;
     boolean increment = true;
     int amt = 1;
 
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             amt = 1;
         }
         chngAmt.setText("By " + amt);
-        
+
         TextView incrementAmount = (TextView) findViewById(R.id.increment_amount);
         if (increment) {
             incrementAmount.setText("Tap each player to +" + amt);
@@ -72,6 +74,24 @@ public class MainActivity extends AppCompatActivity {
         displayPlayerTwo(playerTwoScore);
     }
 
+    public void incPlayerThree (View view) {
+        if (increment) {
+            playerThreeScore += amt;
+        } else {
+            playerThreeScore -= amt;
+        }
+        displayPlayerThree(playerThreeScore);
+    }
+
+    public void incPlayerFour (View view) {
+        if (increment) {
+            playerFourScore += amt;
+        } else {
+            playerFourScore -= amt;
+        }
+        displayPlayerFour(playerFourScore);
+    }
+
     private void displayPlayerOne (int score) {
         TextView view = (TextView) findViewById(R.id.player_one_score);
         view.setText("" + score);
@@ -79,6 +99,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayPlayerTwo (int score) {
         TextView view = (TextView) findViewById(R.id.player_two_score);
+        view.setText("" + score);
+    }
+
+    private void displayPlayerThree (int score) {
+        TextView view = (TextView) findViewById(R.id.player_three_score);
+        view.setText("" + score);
+    }
+
+    private void displayPlayerFour (int score) {
+        TextView view = (TextView) findViewById(R.id.player_four_score);
         view.setText("" + score);
     }
 }
