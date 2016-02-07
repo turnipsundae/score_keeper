@@ -46,21 +46,21 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:gravity="center"
                 android:text="Player 1"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/player_one_score"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:clickable="true"
                 android:onClick="incPlayerOne"
                 android:text="0"
-                android:textSize="36sp" />
+                android:textSize="36sp"
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -70,21 +70,21 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:gravity="center"
                 android:text="Player 2"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/player_two_score"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:clickable="true"
                 android:onClick="incPlayerTwo"
                 android:text="0"
-                android:textSize="36sp" />
+                android:textSize="36sp"
+                android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>
 
