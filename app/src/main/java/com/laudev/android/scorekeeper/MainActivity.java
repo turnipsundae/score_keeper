@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity {
     int playerOneScore = 0;
     int playerTwoScore = 0;
     boolean increment = true;
+    int amt = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +22,26 @@ public class MainActivity extends AppCompatActivity {
         TextView incrementAmount = (TextView) findViewById(R.id.increment_amount);
         if (increment) {
             increment = false;
-            incrementAmount.setText("Tap each player to -1");
+            incrementAmount.setText("Tap each player to -" + amt);
         } else {
             increment = true;
-            incrementAmount.setText("Tap each player to +1");
+            incrementAmount.setText("Tap each player to +" + amt);
+        }
+    }
+
+    public void changeAmt(View view) {
+        if (amt == 1) {
+            amt = 5;
+        } else if (amt == 5) {
+            amt = 10;
+        } else if (amt == 10) {
+            amt = 1;
+        }
+        TextView incrementAmount = (TextView) findViewById(R.id.increment_amount);
+        if (increment) {
+            incrementAmount.setText("Tap each player to +" + amt);
+        } else {
+            incrementAmount.setText("Tap each player to -" + amt);
         }
     }
 

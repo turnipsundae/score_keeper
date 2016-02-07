@@ -11,43 +11,54 @@
         android:layout_height="wrap_content"
         android:background="@android:color/darker_gray"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/increment_amount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Tap each player to +1"
-            android:gravity="center"
-            android:textSize="16sp"
             android:layout_margin="8dp"
-            />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Tap each player to +1"
+            android:textSize="16sp" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:background="@android:color/holo_blue_bright"
+            android:background="@android:color/holo_green_dark"
             android:gravity="center"
-            android:text="Change increment"
+            android:onClick="changeIncrement"
+            android:text="Increase"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/change_amt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:text="by 1"
             android:textSize="16sp"
-            android:onClick="changeIncrement"/>
+            android:onClick="changeAmt"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:clickable="true"
-            android:onClick="incPlayerOne">
+            android:onClick="incPlayerOne"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -60,18 +71,18 @@
                 android:id="@+id/player_one_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="0"
-                android:textSize="36sp"
-                android:gravity="center"/>
+                android:textSize="36sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:clickable="true"
-            android:onClick="incPlayerTwo">
+            android:onClick="incPlayerTwo"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -84,9 +95,9 @@
                 android:id="@+id/player_two_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="0"
-                android:textSize="36sp"
-                android:gravity="center"/>
+                android:textSize="36sp" />
         </LinearLayout>
     </LinearLayout>
 
