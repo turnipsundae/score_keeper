@@ -18,6 +18,7 @@
             android:layout_weight="1"
             android:text="Tap each player to +1"
             android:gravity="center"
+            android:textSize="16sp"
             android:layout_margin="8dp"
             />
 
@@ -29,7 +30,7 @@
             android:background="@android:color/holo_blue_bright"
             android:gravity="center"
             android:text="Change increment"
-            android:textSize="24sp"
+            android:textSize="16sp"
             android:onClick="changeIncrement"/>
     </LinearLayout>
 

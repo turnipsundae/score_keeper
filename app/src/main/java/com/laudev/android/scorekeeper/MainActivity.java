@@ -21,20 +21,28 @@ public class MainActivity extends AppCompatActivity {
         TextView incrementAmount = (TextView) findViewById(R.id.increment_amount);
         if (increment) {
             increment = false;
-            incrementAmount.setText("Tap each player to +1");
+            incrementAmount.setText("Tap each player to -1");
         } else {
             increment = true;
-            incrementAmount.setText("Tap each player to -1");
+            incrementAmount.setText("Tap each player to +1");
         }
     }
 
     public void incPlayerOne (View view) {
-        playerOneScore += 1;
+        if (increment) {
+            playerOneScore += 1;
+        } else {
+            playerOneScore -= 1;
+        }
         displayPlayerOne(playerOneScore);
     }
 
     public void incPlayerTwo (View view) {
-        playerTwoScore += 1;
+        if (increment) {
+            playerTwoScore += 1;
+        } else {
+            playerTwoScore -= 1;
+        }
         displayPlayerTwo(playerTwoScore);
     }
 
