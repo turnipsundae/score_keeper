@@ -1,5 +1,6 @@
 package com.laudev.android.scorekeeper;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
             increment = false;
             incrementAmount.setText("Tap each player to -" + amt);
             incToggle.setText("Decrease");
-
+            incToggle.setBackgroundColor(Color.argb(255, 229, 57, 53));
         } else {
             increment = true;
             incrementAmount.setText("Tap each player to +" + amt);
             incToggle.setText("Increase");
-
+            incToggle.setBackgroundColor(Color.argb(255, 67, 160, 71));
         }
     }
 
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void incPlayerFour (View view) {
+
         if (increment) {
             playerFourScore += amt;
         } else {
