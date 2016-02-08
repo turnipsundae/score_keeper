@@ -9,13 +9,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
 
         <TextView
             android:id="@+id/increment_amount"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Tap each player to +1"
@@ -23,30 +27,34 @@
 
         <Button
             android:id="@+id/inc_toggle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="#43A047"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:background="@color/colorPrimary"
             android:textColor="#FFFFFF"
             android:gravity="center"
             android:onClick="changeIncrement"
-            android:text="Increase"
-            android:textSize="16dp" />
+            android:text="+"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/change_amt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textColor="#FFFFFF"
             android:gravity="center"
-            android:text="by 1"
+            android:text="1"
             android:textSize="16sp"
             android:onClick="changeAmt"/>
-    </LinearLayout>
 
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"></View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -169,6 +177,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Reset All"
-        android:layout_margin="8dp"
+        android:layout_margin="2dp"
         android:onClick="resetAll"/>
 </LinearLayout>

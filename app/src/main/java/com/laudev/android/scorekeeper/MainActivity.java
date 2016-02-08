@@ -28,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
         if (increment) {
             increment = false;
             incrementAmount.setText("Tap each player to -" + amt);
-            incToggle.setText("Decrease");
+            incToggle.setText("-");
             incToggle.setBackgroundColor(Color.argb(255, 229, 57, 53));
         } else {
             increment = true;
             incrementAmount.setText("Tap each player to +" + amt);
-            incToggle.setText("Increase");
+            incToggle.setText("+");
             incToggle.setBackgroundColor(Color.argb(255, 67, 160, 71));
         }
     }
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (amt == 10) {
             amt = 1;
         }
-        chngAmt.setText("By " + amt);
+        chngAmt.setText("" + amt);
 
         TextView incrementAmount = (TextView) findViewById(R.id.increment_amount);
         if (increment) {
