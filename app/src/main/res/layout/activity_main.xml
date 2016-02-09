@@ -21,8 +21,8 @@
             android:layout_height="match_parent"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Tap each player to +1"
+            android:gravity="center_vertical"
+            android:text="Tap each player to"
             android:textSize="16sp" />
 
         <Button
@@ -88,7 +88,8 @@
                 android:gravity="center"
                 android:text="0"
                 android:textColor="#DE000000"
-                android:textSize="56sp" />
+                android:textSize="56sp"
+                android:fontFamily="sans-serif-light"/>
         </LinearLayout>
 
         <LinearLayout
@@ -114,7 +115,8 @@
                 android:gravity="center"
                 android:text="0"
                 android:textColor="#DE000000"
-                android:textSize="56sp" />
+                android:textSize="56sp"
+                android:fontFamily="sans-serif-light"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -147,7 +149,8 @@
                 android:gravity="center"
                 android:text="0"
                 android:textColor="#DE000000"
-                android:textSize="56sp" />
+                android:textSize="56sp"
+                android:fontFamily="sans-serif-light"/>
         </LinearLayout>
 
         <LinearLayout
@@ -173,7 +176,8 @@
                 android:gravity="center"
                 android:text="0"
                 android:textColor="#DE000000"
-                android:textSize="56sp" />
+                android:textSize="56sp"
+                android:fontFamily="sans-serif-light"/>
         </LinearLayout>
     </LinearLayout>
 

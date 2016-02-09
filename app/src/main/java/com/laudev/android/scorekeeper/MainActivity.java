@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
             increment = false;
             incrementAmount.setText("Tap each player to -" + amt);
             incToggle.setText("-");
-            incToggle.setBackgroundColor(Color.argb(255, 229, 57, 53));
+            incToggle.setBackgroundColor(Color.argb(255, 255, 64, 129));
         } else {
             increment = true;
             incrementAmount.setText("Tap each player to +" + amt);
             incToggle.setText("+");
-            incToggle.setBackgroundColor(Color.argb(255, 67, 160, 71));
+            incToggle.setBackgroundColor(Color.argb(255, 63, 81, 181));
         }
     }
 
