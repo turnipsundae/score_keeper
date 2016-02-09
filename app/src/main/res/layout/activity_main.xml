@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:layout_weight="0"
+            style="@style/Widget.AppCompat.Button.Small"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:onClick="changeIncrement"
@@ -43,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
+            style="@style/Widget.AppCompat.Button.Small"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:onClick="changeAmt"
@@ -52,12 +54,6 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@android:color/darker_gray"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -91,7 +87,11 @@
                 android:textSize="56sp"
                 android:fontFamily="sans-serif-light"/>
         </LinearLayout>
-
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="16dp"></View>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -119,7 +119,12 @@
                 android:fontFamily="sans-serif-light"/>
         </LinearLayout>
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"></View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -152,7 +157,11 @@
                 android:textSize="56sp"
                 android:fontFamily="sans-serif-light"/>
         </LinearLayout>
-
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="16dp"></View>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -181,20 +190,15 @@
         </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@android:color/darker_gray"></View>
-
     <Button
         android:id="@+id/reset_all"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginBottom="0dp"
         android:onClick="resetAll"
-        android:text="Reset All" />
+        android:text="Reset All"
+        android:layout_gravity="center"/>
 </LinearLayout>
