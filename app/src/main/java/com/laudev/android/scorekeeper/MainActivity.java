@@ -23,16 +23,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeIncrement(View view) {
-        TextView incrementAmount = (TextView) findViewById(R.id.increment_amount);
         Button incToggle = (Button) findViewById(R.id.inc_toggle);
         if (increment) {
             increment = false;
-            incrementAmount.setText("Tap each player to -" + amt);
             incToggle.setText("-");
             incToggle.setBackgroundColor(Color.argb(255, 255, 64, 129));
         } else {
             increment = true;
-            incrementAmount.setText("Tap each player to +" + amt);
             incToggle.setText("+");
             incToggle.setBackgroundColor(Color.argb(255, 63, 81, 181));
         }
@@ -48,13 +45,6 @@ public class MainActivity extends AppCompatActivity {
             amt = 1;
         }
         chngAmt.setText("" + amt);
-
-        TextView incrementAmount = (TextView) findViewById(R.id.increment_amount);
-        if (increment) {
-            incrementAmount.setText("Tap each player to +" + amt);
-        } else {
-            incrementAmount.setText("Tap each player to -" + amt);
-        }
     }
 
     public void incPlayerOne (View view) {
