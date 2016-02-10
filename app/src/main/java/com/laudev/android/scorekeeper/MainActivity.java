@@ -7,7 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
+
+    static final String PLAYER_ONE_SCORE = "playerOneScore";
+    static final String PLAYER_TWO_SCORE = "playerTwoScore";
+    static final String PLAYER_THREE_SCORE = "playerThreeScore";
+    static final String PLAYER_FOUR_SCORE = "playerFourScore";
 
     int playerOneScore = 0;
     int playerTwoScore = 0;
@@ -17,9 +24,35 @@ public class MainActivity extends AppCompatActivity {
     int amt = 1;
 
     @Override
+    public void onSaveInstanceState (Bundle savedInstanceState) {
+        savedInstanceState.putInt(PLAYER_ONE_SCORE, playerOneScore);
+        savedInstanceState.putInt(PLAYER_TWO_SCORE, playerTwoScore);
+        savedInstanceState.putInt(PLAYER_THREE_SCORE, playerThreeScore);
+        savedInstanceState.putInt(PLAYER_FOUR_SCORE, playerFourScore);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    public void onRestoreInstanceState (Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        playerOneScore = savedInstanceState.getInt(PLAYER_ONE_SCORE);
+        playerTwoScore = savedInstanceState.getInt(PLAYER_TWO_SCORE);
+        playerThreeScore = savedInstanceState.getInt(PLAYER_THREE_SCORE);
+        playerFourScore = savedInstanceState.getInt(PLAYER_FOUR_SCORE);
+        TextView p1_score = (TextView) findViewById(R.id.player_one_score);
+        p1_score.setText("" + playerOneScore);
+        TextView p2_score = (TextView) findViewById(R.id.player_two_score);
+        p2_score.setText("" + playerTwoScore);
+        TextView p3_score = (TextView) findViewById(R.id.player_three_score);
+        p3_score.setText("" + playerThreeScore);
+        TextView p4_score = (TextView) findViewById(R.id.player_four_score);
+        p4_score.setText("" + playerFourScore);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     public void changeIncrement(View view) {
