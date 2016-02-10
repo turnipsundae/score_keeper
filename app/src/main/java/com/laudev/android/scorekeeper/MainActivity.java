@@ -60,11 +60,13 @@ public class MainActivity extends AppCompatActivity {
         if (increment) {
             increment = false;
             incToggle.setText("-");
-            incToggle.setBackgroundColor(Color.argb(255, 255, 64, 129));
+            incToggle.setBackgroundColor(Color.argb(255, 255, 214, 0));
+            incToggle.setTextColor(Color.argb(255, 0, 0, 0));
         } else {
             increment = true;
             incToggle.setText("+");
             incToggle.setBackgroundColor(Color.argb(255, 63, 81, 181));
+            incToggle.setTextColor(Color.argb(255, 255, 255, 255));
         }
     }
 
