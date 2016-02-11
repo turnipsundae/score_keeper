@@ -22,7 +22,7 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="Tap each player to"
+            android:text="@string/instructions"
             android:textSize="16sp" />
 
         <Button
@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Player 1"
+                android:text="@string/player1"
                 android:textSize="12sp" />
 
             <TextView
@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Player 2"
+                android:text="@string/player2"
                 android:textSize="12sp" />
 
             <TextView
@@ -144,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Player 3"
+                android:text="@string/player3"
                 android:textSize="12sp" />
 
             <TextView
@@ -175,7 +175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Player 4"
+                android:text="@string/player4"
                 android:textSize="12sp" />
 
             <TextView
@@ -199,6 +199,6 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:onClick="resetAll"
-        android:text="Reset All"
+        android:text="@string/reset"
         android:layout_gravity="center"/>
 </LinearLayout>

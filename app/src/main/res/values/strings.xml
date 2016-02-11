@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Score Keeper</string>
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="player3">Player 3</string>
+    <string name="player4">Player 4</string>
+    <string name="instructions">Tap each player to</string>
+    <string name="reset">Reset all</string>
 </resources>
