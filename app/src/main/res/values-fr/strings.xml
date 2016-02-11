@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Marqueur</string>
+    <string name="player1">Joueur 1</string>
+    <string name="player2">Joueur 2</string>
+    <string name="player3">Joueur 3</string>
+    <string name="player4">Joueur 4</string>
+    <string name="instructions">Pousser le chaque pour </string>
+    <string name="reset">Tout recommencer</string>
+</resources>
