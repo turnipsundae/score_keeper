@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sekretär</string>
+    <string name="player1">Spieler 1</string>
+    <string name="player2">Spieler 2</string>
+    <string name="player3">Spieler 3</string>
+    <string name="player4">Spieler 4</string>
+    <string name="instructions">Push jeder spieler taste</string>
+    <string name="reset">Alles zurücksetzen</string>
+
+</resources>
