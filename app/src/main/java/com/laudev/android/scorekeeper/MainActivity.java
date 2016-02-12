@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             increment = true;
             incToggle.setText("+");
-            incToggle.setBackgroundColor(Color.argb(255, 63, 81, 181));
+            incToggle.setBackgroundColor(Color.argb(255, 0, 150, 136));
             incToggle.setTextColor(Color.argb(255, 255, 255, 255));
         }
     }
