@@ -6,4 +6,7 @@
     <string name="player4">Player 4</string>
     <string name="instructions">Tap each player to</string>
     <string name="reset">Reset all</string>
+    <string name="change_player_name">Edit name</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -1,10 +1,21 @@
 package com.laudev.android.scorekeeper;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -52,7 +63,66 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        LinearLayout v = (LinearLayout) findViewById(R.id.player_one);
+        v.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ChangePlayerName c = new ChangePlayerName();
+                c.show(getFragmentManager(), "changePlayerName");
+                return false;
+            }
+        });
+    }
 
+    public void ChangePlayerOneName (View view) {
+        LinearLayout v = (LinearLayout) findViewById(R.id.player_one);
+        v.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ChangePlayerName c = new ChangePlayerName();
+                c.show(getFragmentManager(), "changePlayerName");
+                return false;
+            }
+        });
+    }
+
+    public static class ChangePlayerName extends DialogFragment {
+
+        private EditText mEditText;
+
+        public ChangePlayerName () {}
+
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.edit_name, container);
+            mEditText = (EditText) view.findViewById(R.id.edit_name);
+            getDialog().setTitle(R.string.change_player_name);
+
+            // Show soft keyboard automatically
+            mEditText.requestFocus();
+//            mEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            getDialog().getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+//            mEditText.setOnEditorActionListener(getActivity());
+            mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    boolean handled = false;
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        // do something updatePlayerName();
+                        TextView w = (TextView) getActivity().findViewById(R.id.player_one_name);
+                        w.setText(v.getText());
+                        getDialog().dismiss();
+                    }
+                    return handled;
+                }
+            });
+
+            return view;
+        }
     }
 
     public void changeIncrement(View view) {

@@ -68,14 +68,17 @@
             android:clickable="true"
             android:gravity="center"
             android:onClick="incPlayerOne"
-            android:orientation="vertical">
+            android:longClickable="true"
+            android:orientation="vertical"
+            android:id="@+id/player_one">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/player1"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:id="@+id/player_one_name"/>
 
             <TextView
                 android:id="@+id/player_one_score"
