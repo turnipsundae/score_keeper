@@ -63,36 +63,51 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         LinearLayout v = (LinearLayout) findViewById(R.id.player_one);
         v.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ChangePlayerName c = new ChangePlayerName();
+                ChangePlayerOneName c = new ChangePlayerOneName();
+                c.show(getFragmentManager(), "changePlayerName");
+                return false;
+            }
+        });
+
+        LinearLayout w = (LinearLayout) findViewById(R.id.player_two);
+        w.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ChangePlayerTwoName c = new ChangePlayerTwoName();
+                c.show(getFragmentManager(), "changePlayerName2");
+                return false;
+            }
+        });
+
+        LinearLayout x = (LinearLayout) findViewById(R.id.player_three);
+        x.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ChangePlayerThreeName c = new ChangePlayerThreeName();
+                c.show(getFragmentManager(), "changePlayerName");
+                return false;
+            }
+        });
+
+        LinearLayout y = (LinearLayout) findViewById(R.id.player_four);
+        y.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ChangePlayerFourName c = new ChangePlayerFourName();
                 c.show(getFragmentManager(), "changePlayerName");
                 return false;
             }
         });
     }
 
-    public void ChangePlayerOneName (View view) {
-        LinearLayout v = (LinearLayout) findViewById(R.id.player_one);
-        v.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                ChangePlayerName c = new ChangePlayerName();
-                c.show(getFragmentManager(), "changePlayerName");
-                return false;
-            }
-        });
-    }
-
-    public static class ChangePlayerName extends DialogFragment {
-
+    public static class ChangePlayerOneName extends DialogFragment {
         private EditText mEditText;
-
-        public ChangePlayerName () {}
-
-
+        public ChangePlayerOneName () {}
         @Override
         public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -120,7 +135,108 @@ public class MainActivity extends AppCompatActivity {
                     return handled;
                 }
             });
+            return view;
+        }
+    }
 
+    public static class ChangePlayerTwoName extends DialogFragment {
+        private EditText mEditText;
+        public ChangePlayerTwoName () {}
+        @Override
+        public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.edit_name, container);
+            mEditText = (EditText) view.findViewById(R.id.edit_name);
+            getDialog().setTitle(R.string.change_player_name);
+
+            // Show soft keyboard automatically
+            mEditText.requestFocus();
+//            mEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            getDialog().getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+//            mEditText.setOnEditorActionListener(getActivity());
+            mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    boolean handled = false;
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        // do something updatePlayerName();
+                        TextView w = (TextView) getActivity().findViewById(R.id.player_two_name);
+                        w.setText(v.getText());
+                        getDialog().dismiss();
+                    }
+                    return handled;
+                }
+            });
+            return view;
+        }
+    }
+
+    public static class ChangePlayerThreeName extends DialogFragment {
+        private EditText mEditText;
+        public ChangePlayerThreeName () {}
+        @Override
+        public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.edit_name, container);
+            mEditText = (EditText) view.findViewById(R.id.edit_name);
+            getDialog().setTitle(R.string.change_player_name);
+
+            // Show soft keyboard automatically
+            mEditText.requestFocus();
+//            mEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            getDialog().getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+//            mEditText.setOnEditorActionListener(getActivity());
+            mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    boolean handled = false;
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        // do something updatePlayerName();
+                        TextView w = (TextView) getActivity().findViewById(R.id.player_three_name);
+                        w.setText(v.getText());
+                        getDialog().dismiss();
+                    }
+                    return handled;
+                }
+            });
+            return view;
+        }
+    }
+
+    public static class ChangePlayerFourName extends DialogFragment {
+        private EditText mEditText;
+        public ChangePlayerFourName () {}
+        @Override
+        public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.edit_name, container);
+            mEditText = (EditText) view.findViewById(R.id.edit_name);
+            getDialog().setTitle(R.string.change_player_name);
+
+            // Show soft keyboard automatically
+            mEditText.requestFocus();
+//            mEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            getDialog().getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+//            mEditText.setOnEditorActionListener(getActivity());
+            mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    boolean handled = false;
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        // do something updatePlayerName();
+                        TextView w = (TextView) getActivity().findViewById(R.id.player_four_name);
+                        w.setText(v.getText());
+                        getDialog().dismiss();
+                    }
+                    return handled;
+                }
+            });
             return view;
         }
     }

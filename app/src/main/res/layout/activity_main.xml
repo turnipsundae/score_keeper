@@ -27,11 +27,11 @@
 
         <Button
             android:id="@+id/inc_toggle"
+            style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:layout_weight="0"
-            style="@style/Widget.AppCompat.Button.Small"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:onClick="changeIncrement"
@@ -41,10 +41,10 @@
 
         <Button
             android:id="@+id/change_amt"
+            style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            style="@style/Widget.AppCompat.Button.Small"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:onClick="changeAmt"
@@ -62,49 +62,54 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/player_one"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="incPlayerOne"
             android:longClickable="true"
-            android:orientation="vertical"
-            android:id="@+id/player_one">
+            android:onClick="incPlayerOne"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/player_one_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/player1"
-                android:textSize="12sp"
-                android:id="@+id/player_one_name"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/player_one_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="#DE000000"
-                android:textSize="56sp"
-                android:fontFamily="sans-serif-light"/>
+                android:textSize="56sp" />
         </LinearLayout>
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
-            android:layout_marginTop="16dp"></View>
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray"></View>
+
         <LinearLayout
+            android:id="@+id/player_two"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
+            android:longClickable="true"
             android:onClick="incPlayerTwo"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/player_two_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -115,19 +120,21 @@
                 android:id="@+id/player_two_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="#DE000000"
-                android:textSize="56sp"
-                android:fontFamily="sans-serif-light"/>
+                android:textSize="56sp" />
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"></View>
+        android:layout_marginRight="16dp"
+        android:background="@android:color/darker_gray"></View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -135,15 +142,18 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/player_three"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
+            android:longClickable="true"
             android:onClick="incPlayerThree"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/player_three_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -154,27 +164,32 @@
                 android:id="@+id/player_three_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="#DE000000"
-                android:textSize="56sp"
-                android:fontFamily="sans-serif-light"/>
+                android:textSize="56sp" />
         </LinearLayout>
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
-            android:layout_marginBottom="16dp"></View>
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/darker_gray"></View>
+
         <LinearLayout
+            android:id="@+id/player_four"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
+            android:longClickable="true"
             android:onClick="incPlayerFour"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/player_four_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -185,23 +200,23 @@
                 android:id="@+id/player_four_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="#DE000000"
-                android:textSize="56sp"
-                android:fontFamily="sans-serif-light"/>
+                android:textSize="56sp" />
         </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/reset_all"
-        android:background="@color/colorHighlight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
+        android:background="@color/colorHighlight"
         android:onClick="resetAll"
-        android:text="@string/reset"
-        android:layout_gravity="center"/>
+        android:text="@string/reset" />
 </LinearLayout>
