@@ -4,5 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:imeOptions="actionDone"
-    android:inputType="textPersonName">
-</EditText>
+    android:inputType="textPersonName" />
