@@ -1,37 +1,21 @@
 package com.laudev.android.scorekeeper;
 
-import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.laudev.android.scorekeeper.ChangeNameDialog;
-import com.laudev.android.scorekeeper.ListViewSwipeDetector;
-import com.laudev.android.scorekeeper.Player;
-import com.laudev.android.scorekeeper.PlayerAdapter;
-import com.laudev.android.scorekeeper.R;
-import com.laudev.android.scorekeeper.SelectedPlayer;
-
-import java.util.AbstractCollection;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ChangeNameDialog.ChangeNameListener{
 
     public PlayerAdapter adapter;
-    private ListView listViewPlayers;
-    public ArrayList<Player> player_data;
-    private ListViewSwipeDetector listViewSwipeDetector;
+    public ArrayList<Player> playerData;
     public SelectedPlayer selectedPlayer;
+    private ListView listViewPlayers;
+    private ListViewSwipeDetector listViewSwipeDetector;
     private Handler handler = new Handler();
     private Runnable mLongPressed = new Runnable() {
         public void run() {
@@ -48,13 +32,13 @@ public class MainActivity extends AppCompatActivity implements ChangeNameDialog.
         selectedPlayer = new SelectedPlayer(0);
 
         // initialize List with 4 players
-        player_data = new ArrayList<Player>();
+        playerData = new ArrayList<Player>();
         for (int i = 1; i < 5; i++) {
-            player_data.add(new Player(R.drawable.red, "Player " + i, 0));
+            playerData.add(new Player(R.drawable.red, getResources().getString(R.string.player) + " " + i, 0));
         }
 
         adapter = new PlayerAdapter(this,
-                R.layout.simplerow, (ArrayList<Player>) player_data, handler, mLongPressed, selectedPlayer);
+                R.layout.listview_item_row, (ArrayList<Player>) playerData, handler, mLongPressed, selectedPlayer);
 
         listViewPlayers = (ListView)findViewById(R.id.playerList);
 
@@ -82,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements ChangeNameDialog.
     public void onDialogPositiveClick(ChangeNameDialog dialog) {
         // User touched the dialog's positive button
         String name = dialog.getTextInput();
-        Player player = player_data.get(selectedPlayer.getPosition());
+        Player player = playerData.get(selectedPlayer.getPosition());
         player.name = name;
         adapter.notifyDataSetChanged();
         dialog.dismiss();
@@ -98,10 +82,10 @@ public class MainActivity extends AppCompatActivity implements ChangeNameDialog.
         @Override
         public void onClick(View v) {
             // find next player number
-            int nextPlayerNum = player_data.size() + 1;
+            int nextPlayerNum = playerData.size() + 1;
 
             // add player to List
-            player_data.add(new Player(R.drawable.red, "Player " + nextPlayerNum, 0));
+            playerData.add(new Player(R.drawable.red, getResources().getString(R.string.player) + " " + nextPlayerNum, 0));
 
             // update adapter
             adapter.notifyDataSetChanged();

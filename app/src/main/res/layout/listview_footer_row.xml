@@ -2,15 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:background="@color/colorPrimary">
     <TextView android:id="@+id/txtFooter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:layout_margin="16dp"
-        android:text="+ Player"/>
+        android:text="@string/add_player"/>
 </LinearLayout>

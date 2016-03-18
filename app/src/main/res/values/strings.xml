@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Score Keeper</string>
+    <string name="add_player">+ Player</string>
+    <string name="player">Player</string>
     <string name="player1">Player 1</string>
     <string name="player2">Player 2</string>
     <string name="player3">Player 3</string>

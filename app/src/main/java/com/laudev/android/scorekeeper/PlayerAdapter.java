@@ -76,13 +76,13 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         params.leftMargin = 0;
         holder.mainView.setLayoutParams(params);
 
-        SwipeDetector2 swipeDetector2 = new SwipeDetector2(holder, position, handler, runnable, selectedPlayer);
+        SwipeDetector swipeDetector = new SwipeDetector(holder, position, handler, runnable, selectedPlayer);
 
 
         // this works
-        holder.txtName.setOnTouchListener(swipeDetector2);
-        holder.txtScore.setOnTouchListener(swipeDetector2);
-        holder.imgIcon.setOnTouchListener(swipeDetector2);
+        holder.txtName.setOnTouchListener(swipeDetector);
+        holder.txtScore.setOnTouchListener(swipeDetector);
+        holder.imgIcon.setOnTouchListener(swipeDetector);
 
         return row;
     }
@@ -95,15 +95,14 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         TextView txtName;
         TextView txtScore;
         RelativeLayout stackofRows;
-        ListView parentList;
     }
 
-    public class SwipeDetector2 implements View.OnTouchListener {
+    public class SwipeDetector implements View.OnTouchListener {
 
         private static final int MIN_DISTANCE = 300;
         private static final int MIN_LOCK_DISTANCE = 40; // disallow motion intercept
         private boolean motionInterceptDisallowed = false;
-        private float downX, upX, downY, upY;
+        private float downX, upX;
         private PlayerHolder holder;
         private int position;
         boolean isSingleTap = true;
@@ -111,7 +110,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         Runnable mLongPressed;
         SelectedPlayer selectedPlayer;
 
-        public SwipeDetector2 (PlayerHolder h, int pos, Handler handler, Runnable runnable, SelectedPlayer selectedPlayer) {
+        public SwipeDetector(PlayerHolder h, int pos, Handler handler, Runnable runnable, SelectedPlayer selectedPlayer) {
             holder = h;
             position = pos;
             this.handler = handler;
@@ -216,7 +215,6 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) animationView.getLayoutParams();
 
         if (Math.abs(distance) > Math.abs(minDistance)) {
-
             params.rightMargin = -distance;
             params.leftMargin = distance;
             animationView.setLayoutParams(params);

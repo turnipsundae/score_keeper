@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">记分</string>
+    <string name="add_player">加玩家</string>
+    <string name="player">玩家</string>
     <string name="player1">玩家 1</string>
     <string name="player2">玩家 2</string>
     <string name="player3">玩家 3</string>

@@ -24,8 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
-        android:clickable="true"
-        android:focusable="true"
         android:orientation="horizontal">
 
         <ImageView
@@ -44,9 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:focusable="true"
             android:gravity="center_vertical"
-            android:longClickable="true"
             android:minHeight="?android:attr/listPreferredItemHeightLarge"
             android:paddingBottom="5dp"
             android:paddingTop="5dp" />
