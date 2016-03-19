@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements ChangeNameDialog.
         // initialize List with 4 players
         playerData = new ArrayList<Player>();
         for (int i = 1; i < 5; i++) {
-            playerData.add(new Player(R.drawable.red, getResources().getString(R.string.player) + " " + i, 0));
+            playerData.add(new Player(R.drawable.circle, getResources().getString(R.string.player) + " " + i, 0));
         }
 
         adapter = new PlayerAdapter(this,
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements ChangeNameDialog.
             int nextPlayerNum = playerData.size() + 1;
 
             // add player to List
-            playerData.add(new Player(R.drawable.red, getResources().getString(R.string.player) + " " + nextPlayerNum, 0));
+            playerData.add(new Player(R.drawable.circle, getResources().getString(R.string.player) + " " + nextPlayerNum, 0));
 
             // update adapter
             adapter.notifyDataSetChanged();
