@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -172,8 +175,60 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                     if (Math.abs(deltaX) > MIN_DISTANCE) {
                         behavior = "Swipe";
                         if (Math.abs(deltaX) > MIN_DISTANCE) {
-                            remove(getItem(position));
-                            notifyDataSetChanged();
+
+                            // swipe right?
+                            if (upX > downX) {
+                                Animation anim = AnimationUtils.loadAnimation(
+                                        getContext(), android.R.anim.slide_out_right
+                                );
+                                anim.setDuration(500);
+
+                                anim.setAnimationListener(new Animation.AnimationListener() {
+                                    @Override
+                                    public void onAnimationStart(Animation animation) {
+
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animation animation) {
+                                        remove(getItem(position));
+                                        notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animation animation) {
+
+                                    }
+                                });
+                                holder.mainView.startAnimation(anim);
+                            } else {
+                                Animation anim = AnimationUtils.loadAnimation(
+                                        getContext(), R.anim.slide_out_left
+                                );
+                                anim.setDuration(500);
+
+                                anim.setAnimationListener(new Animation.AnimationListener() {
+                                    @Override
+                                    public void onAnimationStart(Animation animation) {
+
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animation animation) {
+                                        remove(getItem(position));
+                                        notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animation animation) {
+
+                                    }
+                                });
+                                holder.mainView.startAnimation(anim);
+                            }
+
+
+
                         } else {
                             swipe(holder, 0);
                         }
