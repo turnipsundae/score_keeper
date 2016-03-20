@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,39 @@ public class MainActivity extends AppCompatActivity implements ChangeNameDialog.
             showChangeNameDialog();
         }
     };
+    
+    private ArrayList<Integer> playerScores;
+    private ArrayList<String> playerNames;
+    static final String PLAYER_SCORES = "playerScores";
+    static final String PLAYER_NAMES = "playerNames";
+
+    @Override
+    public void onSaveInstanceState (Bundle savedInstanceState) {
+        playerScores = new ArrayList<Integer>();
+        playerNames = new ArrayList<String>();
+        for (int i = 0; i < playerData.size(); i++) {
+            playerScores.add(playerData.get(i).score);
+            playerNames.add(playerData.get(i).name);
+        }
+        savedInstanceState.putIntegerArrayList(PLAYER_SCORES, playerScores);
+        savedInstanceState.putStringArrayList(PLAYER_NAMES, playerNames);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    public void onRestoreInstanceState (Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        playerScores = savedInstanceState.getIntegerArrayList(PLAYER_SCORES);
+        playerNames = savedInstanceState.getStringArrayList(PLAYER_NAMES);
+        while (playerData.size() < playerScores.size()) {
+            playerData.add(new Player (R.drawable.circle, "", 0));
+        }
+        for (int i = 0; i < playerScores.size(); i++) {
+            Player player = playerData.get(i);
+            player.name = playerNames.get(i);
+            player.score = playerScores.get(i);
+        }
+    }
+
 
     // Called when activity is first created
     @Override
@@ -32,9 +66,11 @@ public class MainActivity extends AppCompatActivity implements ChangeNameDialog.
         selectedPlayer = new SelectedPlayer(0);
 
         // initialize List with 4 players
-        playerData = new ArrayList<Player>();
-        for (int i = 1; i < 5; i++) {
-            playerData.add(new Player(R.drawable.circle, getResources().getString(R.string.player) + " " + i, 0));
+        if (playerData == null) {
+            playerData = new ArrayList<Player>();
+            for (int i = 1; i < 5; i++) {
+                playerData.add(new Player(R.drawable.circle, getResources().getString(R.string.player) + " " + i, 0));
+            }
         }
 
         adapter = new PlayerAdapter(this,
