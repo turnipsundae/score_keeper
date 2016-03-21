@@ -9,4 +9,8 @@
     <string name="player4">Joueur 4</string>
     <string name="instructions">Pousser le chaque pour </string>
     <string name="reset">Tout recommencer</string>
+    <string name="tap_to_add">Poussez pour ajouter</string>
+    <string name="change_player_name">Changer le nom</string>
+    <string name="ok">Approuver</string>
+    <string name="cancel">Annuler</string>
 </resources>

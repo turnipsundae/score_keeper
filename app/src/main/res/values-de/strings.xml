@@ -9,5 +9,8 @@
     <string name="player4">Spieler 4</string>
     <string name="instructions">Push jeder spieler taste</string>
     <string name="reset">Alles zurücksetzen</string>
-
+    <string name="tap_to_add">Tippen hinzufügen</string>
+    <string name="change_player_name">Namen bearbeiten</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Stornieren</string>
 </resources>

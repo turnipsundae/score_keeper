@@ -9,4 +9,8 @@
     <string name="player4">Jugador 4</string>
     <string name="instructions">Presionar cada jugador en</string>
     <string name="reset">Restablecer todos</string>
+    <string name="tap_to_add">Pulsa para añadir</string>
+    <string name="change_player_name">Cambiar el nombre</string>
+    <string name="ok">Aprobado</string>
+    <string name="cancel">Cancelar</string>
 </resources>

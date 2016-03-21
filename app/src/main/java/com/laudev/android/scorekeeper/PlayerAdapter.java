@@ -256,7 +256,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                         listView.requestDisallowInterceptTouchEvent(motionInterceptDisallowed);
                     }
 
-                    Toast.makeText(context, "Downtime: " + downTime1 + " Behavior: " + behavior, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Downtime: " + downTime1 + " Behavior: " + behavior, Toast.LENGTH_SHORT).show();
 
                     return true;
                 }
@@ -361,7 +361,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                         listView.requestDisallowInterceptTouchEvent(motionInterceptDisallowed);
                     }
 
-                    Toast.makeText(context, "Downtime: " + downTime1 + " Behavior: " + behavior, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Downtime: " + downTime1 + " Behavior: " + behavior, Toast.LENGTH_SHORT).show();
 
                     return true;
                 }

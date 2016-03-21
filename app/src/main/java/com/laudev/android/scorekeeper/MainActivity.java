@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements ChangeNameDialog.
             showChangeNameDialog();
         }
     };
-    
+
     private ArrayList<Integer> playerScores;
     private ArrayList<String> playerNames;
     static final String PLAYER_SCORES = "playerScores";
