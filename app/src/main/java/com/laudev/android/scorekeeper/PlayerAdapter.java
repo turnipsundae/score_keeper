@@ -5,9 +5,11 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.transition.Transition;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -118,13 +120,21 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         private static final int MIN_DISTANCE = 300;
         private static final int MIN_LOCK_DISTANCE = 40; // disallow motion intercept
         private boolean motionInterceptDisallowed = false;
-        private float downX, upX;
+        private float downX, upX, downY, upY;
         private PlayerHolder holder;
         private int position;
-        boolean isSingleTap = true;
+        boolean isSingleTap;
         Handler handler;
         Runnable mLongPressed;
         SelectedPlayer selectedPlayer;
+        private final String LOG_TAG = SwipeDetector.class.getSimpleName();
+        private int mTouchSlop;
+        private boolean checkScrollDirection;
+        private boolean checkForHold;
+        private boolean isScrolling;
+        private boolean isVerticalScrolling;
+        private boolean isHorizontalScrolling;
+
 
         public SwipeDetector(PlayerHolder h, int pos, Handler handler, Runnable runnable, SelectedPlayer selectedPlayer) {
             holder = h;
@@ -132,6 +142,14 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
             this.handler = handler;
             mLongPressed = runnable;
             this.selectedPlayer = selectedPlayer;
+            ViewConfiguration vc = ViewConfiguration.get(context);
+            mTouchSlop = vc.getScaledTouchSlop();
+            isSingleTap = true;
+            checkScrollDirection = true;
+            checkForHold = true;
+            isScrolling = false;
+            isVerticalScrolling = false;
+            isHorizontalScrolling = false;
         }
 
         @Override
@@ -142,7 +160,9 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
 
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN: {
+                    Log.v(LOG_TAG, "Action down X:" + downX);
                     downX = event.getRawX();
+                    downY = event.getRawY();
                     selectedPlayer.setPosition(position);
                     // start timer. if >1 sec go to Action Up
                     handler.postDelayed(mLongPressed, 1000);
@@ -151,16 +171,42 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
 
                 case MotionEvent.ACTION_MOVE: {
                     upX = event.getRawX();
-
+                    upY = event.getRawY();
                     float deltaX = downX - upX;
+                    float deltaY = downY - upY;
 
-                    if (Math.abs(deltaX) > MIN_LOCK_DISTANCE && listView != null && !motionInterceptDisallowed) {
-                        motionInterceptDisallowed = true;
-                        listView.requestDisallowInterceptTouchEvent(motionInterceptDisallowed);
-                        handler.removeCallbacks(mLongPressed);
-                        isSingleTap = false;
+                    Log.v(LOG_TAG, "Action MOVE");
 
+                    if (checkForHold) {
+                        Log.v(LOG_TAG, "Check for Hold");
+                        if (Math.abs(deltaY) > mTouchSlop || Math.abs(deltaX) > mTouchSlop) {
+                            isSingleTap = false;
+                            checkForHold = false;
+                            isScrolling = true;
+                            handler.removeCallbacks(runnable);
+                            Log.v(LOG_TAG, "scrolling");
+                        }
                     }
+
+                    if (isScrolling) {
+                        if (checkScrollDirection) {
+                            if (Math.abs(deltaY) > mTouchSlop) {
+                                isVerticalScrolling = true;
+                                Log.v(LOG_TAG, "is Vertical Scrolling");
+                            } else if (Math.abs(deltaX) > mTouchSlop){
+                                isHorizontalScrolling = true;
+                                Log.v(LOG_TAG, "is Horizontal Scrolling");
+                            }
+                            checkScrollDirection = false;
+                        }
+                    }
+
+                    if (isVerticalScrolling) {
+                        listView.requestDisallowInterceptTouchEvent(false);
+                    } else {
+                        listView.requestDisallowInterceptTouchEvent(true);
+                    }
+
                     swipe(holder, -(int) deltaX, MIN_LOCK_DISTANCE);
 
                     return true;
@@ -168,95 +214,98 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
 
                 case MotionEvent.ACTION_UP: {
                     upX = event.getRawX();
+                    Log.v(LOG_TAG, "ACTION UP,DOWN X:" + upX + "," + downX);
                     float deltaX = upX - downX;
 
                     long downTime1 = event.getEventTime() - event.getDownTime();
 
                     if (Math.abs(deltaX) > MIN_DISTANCE) {
-                        behavior = "Swipe";
-                        if (Math.abs(deltaX) > MIN_DISTANCE) {
+                        // swipe right / left animation
+                        Log.v(LOG_TAG, "swipe");
+                        if (upX > downX) {
+                            Log.v(LOG_TAG, "swipe right");
+                            Animation anim = AnimationUtils.loadAnimation(
+                                    getContext(), android.R.anim.slide_out_right
+                            );
+                            anim.setDuration(500);
+                            anim.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
 
-                            // swipe right?
-                            if (upX > downX) {
-                                Animation anim = AnimationUtils.loadAnimation(
-                                        getContext(), android.R.anim.slide_out_right
-                                );
-                                anim.setDuration(500);
+                                }
 
-                                anim.setAnimationListener(new Animation.AnimationListener() {
-                                    @Override
-                                    public void onAnimationStart(Animation animation) {
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    remove(getItem(position));
+                                    notifyDataSetChanged();
+                                }
 
-                                    }
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
 
-                                    @Override
-                                    public void onAnimationEnd(Animation animation) {
-                                        remove(getItem(position));
-                                        notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onAnimationRepeat(Animation animation) {
-
-                                    }
-                                });
-                                holder.mainView.startAnimation(anim);
-                            } else {
-                                Animation anim = AnimationUtils.loadAnimation(
-                                        getContext(), R.anim.slide_out_left
-                                );
-                                anim.setDuration(500);
-
-                                anim.setAnimationListener(new Animation.AnimationListener() {
-                                    @Override
-                                    public void onAnimationStart(Animation animation) {
-
-                                    }
-
-                                    @Override
-                                    public void onAnimationEnd(Animation animation) {
-                                        remove(getItem(position));
-                                        notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onAnimationRepeat(Animation animation) {
-
-                                    }
-                                });
-                                holder.mainView.startAnimation(anim);
-                            }
-
-
-
+                                }
+                            });
+                            holder.mainView.startAnimation(anim);
                         } else {
-                            swipe(holder, 0);
+                            Log.v(LOG_TAG, "swipe left");
+                            Animation anim = AnimationUtils.loadAnimation(
+                                    getContext(), R.anim.slide_out_left
+                            );
+                            anim.setDuration(500);
+                            anim.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    remove(getItem(position));
+                                    notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+
+                                }
+                            });
+                            holder.mainView.startAnimation(anim);
                         }
-                    } else if (downTime1 < 1000 && isSingleTap) {
-                        behavior = "Single Tap";
-                        handler.removeCallbacks(mLongPressed);
-
-                        // find the position of the row within the ListView
-                        int position = listView.getPositionForView(stackOfRows);
-
-                        // find the Player data tied to the adapter
-                        Player player = data.get(position);
-
-                        // increase score
-                        player.score += 1;
-
-                        // update adapter
-                        notifyDataSetChanged();
                     } else {
                         swipe(holder, 0);
                     }
 
-                    if (listView != null) {
-                        motionInterceptDisallowed = false;
-                        listView.requestDisallowInterceptTouchEvent(motionInterceptDisallowed);
+                    if (downTime1 < 1000 && isSingleTap) {
+                        behavior = "Single Tap";
+                        handler.removeCallbacks(mLongPressed);
+                        // find the position of the row within the ListView
+                        int position = listView.getPositionForView(stackOfRows);
+                        // find the Player data tied to the adapter
+                        Player player = data.get(position);
+                        // increase score
+                        player.score += 1;
+                        // update adapter
+                        notifyDataSetChanged();
                     }
 
-//                    Toast.makeText(context, "Downtime: " + downTime1 + " Behavior: " + behavior, Toast.LENGTH_SHORT).show();
+                    if (listView != null) {
+                        listView.requestDisallowInterceptTouchEvent(false);
+                    }
+
+                    isSingleTap = true;
+                    checkForHold = true;
+                    checkScrollDirection = true;
+                    isScrolling = false;
+                    isHorizontalScrolling = false;
+                    isVerticalScrolling = false;
+
+
+                    /*if (isVerticalScrolling) {
+                        isVerticalScrolling = false;
+                        return true;
+                    } else {
+                        return false;
+                    }*/
 
                     return true;
                 }
@@ -275,13 +324,21 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         private static final int MIN_DISTANCE = 300;
         private static final int MIN_LOCK_DISTANCE = 40; // disallow motion intercept
         private boolean motionInterceptDisallowed = false;
-        private float downX, upX;
+        private float downX, upX, downY, upY;
         private PlayerHolder holder;
         private int position;
-        boolean isSingleTap = true;
+        boolean isSingleTap;
         Handler handler;
         Runnable mLongPressed;
         SelectedPlayer selectedPlayer;
+        private final String LOG_TAG = SwipeDetector.class.getSimpleName();
+        private int mTouchSlop;
+        private boolean checkScrollDirection;
+        private boolean checkForHold;
+        private boolean isScrolling;
+        private boolean isVerticalScrolling;
+        private boolean isHorizontalScrolling;
+
 
         public SwipeDetector2(PlayerHolder h, int pos, Handler handler, Runnable runnable, SelectedPlayer selectedPlayer) {
             holder = h;
@@ -289,6 +346,14 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
             this.handler = handler;
             mLongPressed = runnable;
             this.selectedPlayer = selectedPlayer;
+            ViewConfiguration vc = ViewConfiguration.get(context);
+            mTouchSlop = vc.getScaledTouchSlop();
+            isSingleTap = true;
+            checkScrollDirection = true;
+            checkForHold = true;
+            isScrolling = false;
+            isVerticalScrolling = false;
+            isHorizontalScrolling = false;
         }
 
         @Override
@@ -299,7 +364,9 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
 
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN: {
+                    Log.v(LOG_TAG, "Action down X:" + downX);
                     downX = event.getRawX();
+                    downY = event.getRawY();
                     selectedPlayer.setPosition(position);
                     // start timer. if >1 sec go to Action Up
                     handler.postDelayed(mLongPressed, 1000);
@@ -308,16 +375,42 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
 
                 case MotionEvent.ACTION_MOVE: {
                     upX = event.getRawX();
-
+                    upY = event.getRawY();
                     float deltaX = downX - upX;
+                    float deltaY = downY - upY;
 
-                    if (Math.abs(deltaX) > MIN_LOCK_DISTANCE && listView != null && !motionInterceptDisallowed) {
-                        motionInterceptDisallowed = true;
-                        listView.requestDisallowInterceptTouchEvent(motionInterceptDisallowed);
-                        handler.removeCallbacks(mLongPressed);
-                        isSingleTap = false;
+                    Log.v(LOG_TAG, "Action MOVE");
 
+                    if (checkForHold) {
+                        Log.v(LOG_TAG, "Check for Hold");
+                        if (Math.abs(deltaY) > mTouchSlop || Math.abs(deltaX) > mTouchSlop) {
+                            isSingleTap = false;
+                            checkForHold = false;
+                            isScrolling = true;
+                            handler.removeCallbacks(runnable);
+                            Log.v(LOG_TAG, "scrolling");
+                        }
                     }
+
+                    if (isScrolling) {
+                        if (checkScrollDirection) {
+                            if (Math.abs(deltaY) > mTouchSlop) {
+                                isVerticalScrolling = true;
+                                Log.v(LOG_TAG, "is Vertical Scrolling");
+                            } else if (Math.abs(deltaX) > mTouchSlop){
+                                isHorizontalScrolling = true;
+                                Log.v(LOG_TAG, "is Horizontal Scrolling");
+                            }
+                            checkScrollDirection = false;
+                        }
+                    }
+
+                    if (isVerticalScrolling) {
+                        listView.requestDisallowInterceptTouchEvent(false);
+                    } else {
+                        listView.requestDisallowInterceptTouchEvent(true);
+                    }
+
                     swipe(holder, -(int) deltaX, MIN_LOCK_DISTANCE);
 
                     return true;
@@ -325,31 +418,74 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
 
                 case MotionEvent.ACTION_UP: {
                     upX = event.getRawX();
+                    Log.v(LOG_TAG, "ACTION UP,DOWN X:" + upX + "," + downX);
                     float deltaX = upX - downX;
 
                     long downTime1 = event.getEventTime() - event.getDownTime();
 
                     if (Math.abs(deltaX) > MIN_DISTANCE) {
-                        behavior = "Swipe";
-                        if (Math.abs(deltaX) > MIN_DISTANCE) {
-                            remove(getItem(position));
-                            notifyDataSetChanged();
+                        // swipe right / left animation
+                        Log.v(LOG_TAG, "swipe");
+                        if (upX > downX) {
+                            Log.v(LOG_TAG, "swipe right");
+                            Animation anim = AnimationUtils.loadAnimation(
+                                    getContext(), android.R.anim.slide_out_right);
+                            anim.setDuration(500);
+                            anim.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    remove(getItem(position));
+                                    notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+
+                                }
+                            });
+                            holder.mainView.startAnimation(anim);
                         } else {
-                            swipe(holder, 0);
+                            Log.v(LOG_TAG, "swipe left");
+                            Animation anim = AnimationUtils.loadAnimation(
+                                    getContext(), R.anim.slide_out_left);
+                            anim.setDuration(500);
+                            anim.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    remove(getItem(position));
+                                    notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+
+                                }
+                            });
+                            holder.mainView.startAnimation(anim);
                         }
-                    } else if (downTime1 < 1000 && isSingleTap) {
+                    } else {
+                        swipe(holder, 0);
+                    }
+
+                    if (downTime1 < 1000 && isSingleTap) {
                         behavior = "Single Tap";
                         handler.removeCallbacks(mLongPressed);
-
                         // find the position of the row within the ListView
                         int position = listView.getPositionForView(stackOfRows);
-
                         // find the Player data tied to the adapter
                         Player player = data.get(position);
-
                         // increase score
                         player.score -= 1;
-
                         // update adapter
                         notifyDataSetChanged();
                     } else {
@@ -357,11 +493,23 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                     }
 
                     if (listView != null) {
-                        motionInterceptDisallowed = false;
-                        listView.requestDisallowInterceptTouchEvent(motionInterceptDisallowed);
+                        listView.requestDisallowInterceptTouchEvent(false);
                     }
 
-//                    Toast.makeText(context, "Downtime: " + downTime1 + " Behavior: " + behavior, Toast.LENGTH_SHORT).show();
+                    isSingleTap = true;
+                    checkForHold = true;
+                    checkScrollDirection = true;
+                    isScrolling = false;
+                    isHorizontalScrolling = false;
+                    isVerticalScrolling = false;
+
+
+                    /*if (isVerticalScrolling) {
+                        isVerticalScrolling = false;
+                        return true;
+                    } else {
+                        return false;
+                    }*/
 
                     return true;
                 }
