@@ -156,7 +156,6 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         public boolean onTouch(View v, MotionEvent event) {
             View stackOfRows = (View) holder.mainView.getParent();
             ListView listView = (ListView) stackOfRows.getParent();
-            String behavior = "No Action";
 
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN: {
@@ -165,7 +164,10 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                     downY = event.getRawY();
                     selectedPlayer.setPosition(position);
                     // start timer. if >1 sec go to Action Up
-                    handler.postDelayed(mLongPressed, 1000);
+                    if (motionInterceptDisallowed) {
+                        handler.postDelayed(mLongPressed, 1000);
+                    }
+
                     return true; // allow other events like Click to be processed
                 }
 
@@ -176,6 +178,10 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                     float deltaY = downY - upY;
 
                     Log.v(LOG_TAG, "Action MOVE");
+
+                    if (Math.abs(deltaY) > mTouchSlop || Math.abs(deltaX) > mTouchSlop) {
+                        handler.removeCallbacks(null);
+                    }
 
                     if (checkForHold) {
                         Log.v(LOG_TAG, "Check for Hold");
@@ -202,10 +208,11 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                     }
 
                     if (isVerticalScrolling) {
-                        listView.requestDisallowInterceptTouchEvent(false);
+                        motionInterceptDisallowed = false;
                     } else {
-                        listView.requestDisallowInterceptTouchEvent(true);
+                        motionInterceptDisallowed = true;
                     }
+                    listView.requestDisallowInterceptTouchEvent(motionInterceptDisallowed);
 
                     swipe(holder, -(int) deltaX, MIN_LOCK_DISTANCE);
 
@@ -276,7 +283,6 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                     }
 
                     if (downTime1 < 1000 && isSingleTap) {
-                        behavior = "Single Tap";
                         handler.removeCallbacks(mLongPressed);
                         // find the position of the row within the ListView
                         int position = listView.getPositionForView(stackOfRows);
@@ -299,18 +305,16 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                     isHorizontalScrolling = false;
                     isVerticalScrolling = false;
 
-
-                    /*if (isVerticalScrolling) {
-                        isVerticalScrolling = false;
-                        return true;
-                    } else {
-                        return false;
-                    }*/
-
                     return true;
                 }
 
                 case MotionEvent.ACTION_CANCEL: {
+                    isSingleTap = true;
+                    checkForHold = true;
+                    checkScrollDirection = true;
+                    isScrolling = false;
+                    isHorizontalScrolling = false;
+                    isVerticalScrolling = false;
                     return false;
                 }
             }
